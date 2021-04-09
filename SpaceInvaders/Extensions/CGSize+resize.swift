@@ -11,7 +11,7 @@ import UIKit
 extension CGSize {
     mutating func resize(to percent: CGFloat) {
         guard percent < 1 else { return }
-        
+
         self.width *= percent
         self.height *= percent
     }
