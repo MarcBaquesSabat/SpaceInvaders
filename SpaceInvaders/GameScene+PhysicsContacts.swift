@@ -1,5 +1,5 @@
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
@@ -13,7 +13,7 @@ extension GameScene: SKPhysicsContactDelegate {
         let oneNodeIsBomb = nameA == "bomb" || nameB == "bomb"
         let oneNodeIsHouse = nameA.hasPrefix("house") || nameB.hasPrefix("house")
 
-        if oneNodeIsEnemy && oneNodeIsShoot {
+        if oneNodeIsEnemy, oneNodeIsShoot {
             nodeA.removeFromParent()
             nodeB.removeFromParent()
 
@@ -25,20 +25,20 @@ extension GameScene: SKPhysicsContactDelegate {
             return
         }
 
-        if oneNodeIsHouse && oneNodeIsBomb {
+        if oneNodeIsHouse, oneNodeIsBomb {
             run(self.bombSound)
             nodeA.removeFromParent()
             nodeB.removeFromParent()
             return
         }
 
-        if oneNodeIsShoot && oneNodeIsBomb {
+        if oneNodeIsShoot, oneNodeIsBomb {
             nodeA.removeFromParent()
             nodeB.removeFromParent()
             return
         }
 
-        if oneNodeIsEnemy && oneNodeIsHouse {
+        if oneNodeIsEnemy, oneNodeIsHouse {
             print("End Game")
             return
         }

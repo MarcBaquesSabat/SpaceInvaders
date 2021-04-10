@@ -1,8 +1,7 @@
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 class GameScene: SKScene {
-
     var spaceShip: SKSpriteNode!
     private let laserShootSound = SKAction.playSoundFileNamed("lasershoot.wav", waitForCompletion: false)
     let bombSound = SKAction.playSoundFileNamed("bomb.wav", waitForCompletion: false)
@@ -23,7 +22,7 @@ class GameScene: SKScene {
 
     var enemiesMovementDirection = Direction.right
 
-    override func didMove(to view: SKView) {
+    override func didMove(to _: SKView) {
         let spaceshipYPositon = -(self.size.height / 2) + 100
 
         self.backgroundColor = .black
@@ -53,11 +52,11 @@ class GameScene: SKScene {
                                                      selector: #selector(moveEnemies),
                                                      userInfo: nil,
                                                      repeats: true)
-
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard self.spaceshipTouch == nil else {
+    override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+        guard self.spaceshipTouch == nil
+        else {
             self.createShoot()
             run(self.laserShootSound)
             return
@@ -72,7 +71,7 @@ class GameScene: SKScene {
         }
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
         guard let spaceshipTouch = self.spaceshipTouch else { return }
         guard let touchIndex = touches.firstIndex(of: spaceshipTouch) else { return }
 
@@ -84,21 +83,21 @@ class GameScene: SKScene {
         self.spaceShip.run(action)
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
         guard let spaceshipTouch = self.spaceshipTouch else { return }
         guard touches.firstIndex(of: spaceshipTouch) != nil else { return }
 
         self.spaceshipTouch = nil
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
         guard let spaceshipTouch = self.spaceshipTouch else { return }
         guard touches.firstIndex(of: spaceshipTouch) != nil else { return }
 
         self.spaceshipTouch = nil
     }
 
-    override func update(_ currentTime: TimeInterval) {
+    override func update(_: TimeInterval) {
         self.cleanPastShoots()
     }
 }
@@ -125,7 +124,7 @@ extension GameScene {
 
         guard bottomEnemies.count > 0 else { return }
 
-        let shooterEnemyIndex = Int.random(in: 0..<bottomEnemies.count)
+        let shooterEnemyIndex = Int.random(in: 0 ..< bottomEnemies.count)
         let shooterEnemy = bottomEnemies[shooterEnemyIndex]
         let bombPosition = CGPoint(x: shooterEnemy.position.x,
                                    y: shooterEnemy.position.y - self.enemiesVerticaSpacing / 2)

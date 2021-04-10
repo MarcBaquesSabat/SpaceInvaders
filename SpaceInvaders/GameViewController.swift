@@ -1,10 +1,9 @@
-import UIKit
-import SpriteKit
 import GameplayKit
+import SpriteKit
+import UIKit
 
 class GameViewController: UIViewController {
-
-    @IBOutlet weak var launchImage: UIImageView!
+    @IBOutlet var launchImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +25,14 @@ class GameViewController: UIViewController {
         view.showsNodeCount = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.launchImage.isHidden = true
         }
     }
 
     override var shouldAutorotate: Bool {
-        return true
+        true
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -45,6 +44,6 @@ class GameViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return true
+        true
     }
 }
