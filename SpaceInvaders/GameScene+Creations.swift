@@ -12,7 +12,10 @@ extension GameScene {
         sprite.physicsBody?.velocity = CGVector(dx: 0, dy: 500)
         sprite.physicsBody?.affectedByGravity = false
         sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.contactTestBitMask = 0x0000_0101
+        sprite.physicsBody?.categoryBitMask = 0x0000_0001
+        sprite.physicsBody?.contactTestBitMask = 0x0000_1110 //Bomb(1000)-Enemy(0100)-House(0010)-Shoot(0001)
+        sprite.physicsBody?.collisionBitMask = 0x0000_0000
+        
     }
 
     func addHouses(_ spaceshipYPositon: CGFloat) {
@@ -40,9 +43,9 @@ extension GameScene {
             sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
             sprite.position = CGPoint(x: houseX, y: houseY)
             sprite.physicsBody?.affectedByGravity = false
-            sprite.physicsBody?.categoryBitMask = 0x0000_0110
-            sprite.physicsBody?.contactTestBitMask = 0x0000_0001
-            sprite.physicsBody?.isDynamic = false
+            sprite.physicsBody?.categoryBitMask = 0x0000_0010
+            sprite.physicsBody?.contactTestBitMask = 0x0000_1100 //Bomb(1000)-Enemy(0100)-House(0010)-Shoot(0001)
+            sprite.physicsBody?.collisionBitMask = 0x0000_0000
 
             self.addChild(sprite)
         }
@@ -92,8 +95,9 @@ extension GameScene {
         enemy.size.resize(to: 0.35)
         enemy.position = position
         enemy.physicsBody = SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
-        enemy.physicsBody?.categoryBitMask = 0x0000_0001
-        enemy.physicsBody?.contactTestBitMask = 0x0000_0111
+        enemy.physicsBody?.categoryBitMask = 0x0000_0100
+        enemy.physicsBody?.contactTestBitMask = 0x0000_0011 //Bomb(1000)-Enemy(0100)-House(0010)-Shoot(0001)
+        enemy.physicsBody?.collisionBitMask = 0x0000_0000
         enemy.name = "Enemy_\(number)"
         enemy.physicsBody?.affectedByGravity = false
         enemy.physicsBody?.isDynamic = false
@@ -114,6 +118,8 @@ extension GameScene {
         sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
         sprite.physicsBody?.affectedByGravity = true
         sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.contactTestBitMask = 0x0000_0100
+        sprite.physicsBody?.categoryBitMask = 0x0000_1000
+        sprite.physicsBody?.contactTestBitMask = 0x0000_0010 //Bomb(1000)-Enemy(0100)-House(0010)-Shoot(0001)
+        sprite.physicsBody?.collisionBitMask = 0x0000_0000
     }
 }

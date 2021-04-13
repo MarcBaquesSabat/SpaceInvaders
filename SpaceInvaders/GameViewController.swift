@@ -23,6 +23,7 @@ class GameViewController: UIViewController {
 
         view.showsFPS = true
         view.showsNodeCount = true
+        
     }
 
     override func viewDidAppear(_: Bool) {
@@ -46,4 +47,6 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         true
     }
+    
+    
 }

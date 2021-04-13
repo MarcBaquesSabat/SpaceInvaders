@@ -21,6 +21,8 @@ class GameScene: SKScene {
     }
 
     var enemiesMovementDirection = Direction.right
+    
+    var endLabel: SKLabelNode!
 
     override func didMove(to _: SKView) {
         let spaceshipYPositon = -(self.size.height / 2) + 100
@@ -42,16 +44,19 @@ class GameScene: SKScene {
         self.scoreLabel.position = CGPoint(x: 0, y: (self.size.height / 2) - 50)
         self.addChild(self.scoreLabel)
 
-        self.bombTimer = Timer.scheduledTimer(timeInterval: 1.5,
+        self.bombTimer = Timer.scheduledTimer(timeInterval: 0.7,
                                               target: self,
                                               selector: #selector(dropBomb),
                                               userInfo: nil,
                                               repeats: true)
-        self.enemiesMoveTimer = Timer.scheduledTimer(timeInterval: 1,
+        self.enemiesMoveTimer = Timer.scheduledTimer(timeInterval: 0.1,
                                                      target: self,
                                                      selector: #selector(moveEnemies),
                                                      userInfo: nil,
                                                      repeats: true)
+        self.endLabel = SKLabelNode(text: "GAME OVER")
+        self.endLabel.isHidden = true
+        
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
@@ -99,6 +104,63 @@ class GameScene: SKScene {
 
     override func update(_: TimeInterval) {
         self.cleanPastShoots()
+    }
+    
+    func reset(){
+        //Delete enemies
+        self.removeAllChildren()
+        
+        //Show screen
+        if self.endLabel == nil{
+            self.endLabel = SKLabelNode(text: "GAME OVER")
+        }
+        self.endLabel.isHidden = false
+        self.addChild(self.endLabel)
+        
+        
+        
+        /*
+        //Reset score
+        self.scoreLabel.text = "SCORE: 0"
+        self.currentScore = 0
+        
+        //Start again
+        let spaceshipYPositon = -(self.size.height / 2) + 100
+
+        self.backgroundColor = .black
+        self.spaceShip = SKSpriteNode(imageNamed: "SpaceShip")
+        self.spaceShip.name = "spaceship"
+        self.spaceShip.size = CGSize(width: 50, height: 25)
+        self.spaceShip.position = CGPoint(x: 0, y: spaceshipYPositon)
+        self.addChild(self.spaceShip)
+
+        self.addHouses(spaceshipYPositon)
+
+        self.addEnemies(at: 100)
+
+        self.physicsWorld.contactDelegate = self
+
+        self.scoreLabel = SKLabelNode(text: "SCORE: 0")
+        self.scoreLabel.position = CGPoint(x: 0, y: (self.size.height / 2) - 50)
+        self.addChild(self.scoreLabel)
+        
+        if self.bombTimer == nil{
+            self.bombTimer = Timer.scheduledTimer(timeInterval: 0.7,
+                                                  target: self,
+                                                  selector: #selector(dropBomb),
+                                                  userInfo: nil,
+                                                  repeats: true)
+        }
+        
+        if self.bombTimer == nil{
+            self.enemiesMoveTimer = Timer.scheduledTimer(timeInterval: 0.1,
+                                                         target: self,
+                                                         selector: #selector(moveEnemies),
+                                                         userInfo: nil,
+                                                         repeats: true)
+        }
+        
+        */
     }
 }
 

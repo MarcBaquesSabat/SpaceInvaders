@@ -5,18 +5,19 @@ extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
-
+        
         guard let nameA = nodeA.name, let nameB = nodeB.name else { return }
-
+        
         let oneNodeIsEnemy = nameA.hasPrefix("Enemy") || nameB.hasPrefix("Enemy")
         let oneNodeIsShoot = nameA == "shoot" || nameB == "shoot"
         let oneNodeIsBomb = nameA == "bomb" || nameB == "bomb"
         let oneNodeIsHouse = nameA.hasPrefix("house") || nameB.hasPrefix("house")
+        
 
         if oneNodeIsEnemy, oneNodeIsShoot {
             nodeA.removeFromParent()
             nodeB.removeFromParent()
-
+            print("Enemy, shoot")
             self.currentScore += 1
             self.scoreLabel.text = "SCORE: \(self.currentScore)"
 
@@ -39,7 +40,8 @@ extension GameScene: SKPhysicsContactDelegate {
         }
 
         if oneNodeIsEnemy, oneNodeIsHouse {
-            print("End Game")
+            reset()
+            print("Game over")
             return
         }
 
