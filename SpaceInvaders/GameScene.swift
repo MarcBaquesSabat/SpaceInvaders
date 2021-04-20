@@ -21,7 +21,7 @@ class GameScene: SKScene {
     }
 
     var enemiesMovementDirection = Direction.right
-    
+
     var endLabel: SKLabelNode!
 
     override func didMove(to _: SKView) {
@@ -56,7 +56,7 @@ class GameScene: SKScene {
                                                      repeats: true)
         self.endLabel = SKLabelNode(text: "GAME OVER")
         self.endLabel.isHidden = true
-        
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
@@ -105,20 +105,18 @@ class GameScene: SKScene {
     override func update(_: TimeInterval) {
         self.cleanPastShoots()
     }
-    
-    func reset(){
-        //Delete enemies
+
+    func reset() {
+        // Delete enemies
         self.removeAllChildren()
-        
-        //Show screen
-        if self.endLabel == nil{
+
+        // Show screen
+        if self.endLabel == nil {
             self.endLabel = SKLabelNode(text: "GAME OVER")
         }
         self.endLabel.isHidden = false
         self.addChild(self.endLabel)
-        
-        
-        
+
         /*
         //Reset score
         self.scoreLabel.text = "SCORE: 0"
